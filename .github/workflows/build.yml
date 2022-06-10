@@ -16,12 +16,12 @@ jobs:
         run: npm install
       - name: Generate unrouted PCBs
         run: |
-          cp index.js ./node_modules/ergogen/src/footprints
-          cp bat.js ./node_modules/ergogen/src/footprints
-          cp b3u1000p.js ./node_modules/ergogen/src/footprints
-          cp promicro.js ./node_modules/ergogen/src/footprints
-          cp pcm12.js ./node_modules/ergogen/src/footprints
-          cp promicro_pretty.js ./node_modules/ergogen/src/footprints
+          cp extra/index.js ./node_modules/ergogen/src/footprints
+          cp extra/bat.js ./node_modules/ergogen/src/footprints
+          cp extra/b3u1000p.js ./node_modules/ergogen/src/footprints
+          cp extra/promicro.js ./node_modules/ergogen/src/footprints
+          cp extra/pcm12.js ./node_modules/ergogen/src/footprints
+          cp extra/promicro_pretty.js ./node_modules/ergogen/src/footprints
           npm run gen
       - name: Export DSN for main PCB
         uses: ./.github/actions/export-dsn

@@ -8,12 +8,12 @@ container_args ?= -w /board -v $(shell pwd):/board --rm
 
 setup:
 	npm install
-	cp index.js ./node_modules/ergogen/src/footprints
-	cp bat.js ./node_modules/ergogen/src/footprints
-	cp b3u1000p.js ./node_modules/ergogen/src/footprints
-	cp promicro.js ./node_modules/ergogen/src/footprints
-	cp pcm12.js ./node_modules/ergogen/src/footprints
-	cp promicro_pretty.js ./node_modules/ergogen/src/footprints
+	cp extra/index.js ./node_modules/ergogen/src/footprints
+	cp extra/bat.js ./node_modules/ergogen/src/footprints
+	cp extra/b3u1000p.js ./node_modules/ergogen/src/footprints
+	cp extra/promicro.js ./node_modules/ergogen/src/footprints
+	cp extra/pcm12.js ./node_modules/ergogen/src/footprints
+	cp extra/promicro_pretty.js ./node_modules/ergogen/src/footprints
 
 # outputs from 
 output/pcbs/board.kicad_pcb output/pcbs/top_plate.kicad_pcb output/pcbs/bottom_plate.kicad_pcb &: samoklava.yaml
