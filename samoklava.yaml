@@ -291,7 +291,7 @@ pcbs:
         # TODO there's a way to add stuff to the silkscreen layer
     footprints:
       mcu_l:
-        type: promicro_pretty
+        type: promicro
         params:
           batteryPins: true
         anchor:
@@ -299,36 +299,15 @@ pcbs:
             - matrix_inner_top
           shift: [20, -11]
           rotate: 270
-      pad_plus:
-        type: pad
+      bat:
+        type: bat
+        nets: 
+          neg: GND
         anchor:
           ref:
             - matrix_inner_top
           shift: [25, -30]
           rotate: 90
-        params:
-          front: true
-          back: true
-          width: 1.5
-          height: 1.5
-          text: "B+"
-        nets:
-          net: Braw
-      pad_minus:
-        type: pad
-        anchor:
-          ref:
-            - matrix_inner_top
-          shift: [22, -30]
-          rotate: 90
-        params:
-          front: true
-          back: true
-          width: 1.5
-          height: 1.5
-          text: "B-"
-        nets:
-          net: Bminus
       jumper_l:
         type: jumper
         anchor:
@@ -353,39 +332,27 @@ pcbs:
         nets:
           from: Braw
           to: Bplus
-      slider_l:
-        type: slider
+      slider:
+        type: pcm12
         anchor:
           ref:
             - matrix_inner_bottom
           shift: [30, 0]
           rotate: 270
         params:
-          side: F
-        nets:
-          from: Braw
-          to: Bplus
-      slider_r:
-        type: slider
-        anchor:
-          ref:
-            - matrix_inner_bottom
-          shift: [30, 0]
-          rotate: 270
-        params:
-          side: B
+          reverse: true
         nets:
           from: Braw
           to: Bplus
       reset:
-        type: button
+        type: b3u1000p
         anchor:
           ref:
             - matrix_inner_bottom
           shift: [17, 0]
           rotate: 270
         params:
-          variant: 2_pin_th
+          reverse: true
         nets:
           from: GND
           to: RST
