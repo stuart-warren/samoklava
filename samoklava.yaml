@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ergogen/ergogen/develop/meta/schema.json
 units:
   kx: cx
   ky: cy
@@ -15,17 +16,8 @@ points:
         nets:
           # from: P1
           # to: P2
-          from: =colrow
-          to: =column_net
-      diode:
-        type: diode
-        nets:
-          # from: P3
-          # to: P4
-          from: =colrow
-          to: =row_net
-        anchor:
-          shift: [0, -5]
+          from: =column_net
+          to: GND
   zones:
     matrix:
       # anchor:
@@ -35,35 +27,53 @@ points:
         pinky:
           stagger: 0 ky
           spread: kx
-          key:
-            column_net: P20
+          row_overrides:
+            bottom:
+              column_net: P2
+            home:
+              column_net: P15
+            top:
+              column_net: P7
         ring:
           stagger: 0.7 ky
           spread: kx
-          key:
-            column_net: P19
+          row_overrides:
+            bottom:
+              column_net: P3
+            home:
+              column_net: P14
+            top:
+              column_net: P18
         middle:
           stagger: 0.2 ky
           spread: kx
-          key:
-            column_net: P18
+          row_overrides:
+            bottom:
+              column_net: P4
+            home:
+              column_net: P16
+            top:
+              column_net: P19
         index:
           stagger: -0.2 ky
           spread: kx
-          key:
-            column_net: P15
+          row_overrides:
+            bottom:
+              column_net: P5
+            home:
+              column_net: P10
+            top:
+              column_net: P20
         inner:
           stagger: -0.1 ky
           spread: kx
-          key:
-            column_net: P14
-      rows:
-        bottom:
-          row_net: P6
-        home:
-          row_net: P5
-        top:
-          row_net: P4
+          row_overrides:
+            bottom:
+              column_net: P6
+            home:
+              column_net: P1
+            top:
+              column_net: P21
     thumbfan:
       anchor:
         ref: matrix_inner_bottom
@@ -74,22 +84,22 @@ points:
           rotate: -15
           origin: [-0.5 kx, -0.5 ky]
           key:
-            column_net: P18
+            column_net: P7
         home:
           spread: kx
           rotate: -15
           origin: [-0.5 kx, -0.5 ky]
           key:
-            column_net: P15
+            column_net: P8
         far:
           spread: kx
           rotate: -15
           origin: [-0.5 kx, -0.5 ky]
           key:
-            column_net: P14
+            column_net: P9
       rows:
         thumb:
-          row_net: P7
+          padding: 0
 outlines:
   # board dimensions according to JLCPCB: 122.28 mm x 101.05 mm
   exports:
@@ -306,8 +316,8 @@ pcbs:
         type: pad
         anchor:
           ref:
-            - matrix_inner_top
-          shift: [23, -18]
+            - matrix_inner_home
+          shift: [23, -14]
           rotate: 0
         params:
           front: true
@@ -321,8 +331,8 @@ pcbs:
         type: pad
         anchor:
           ref:
-            - matrix_inner_top
-          shift: [23, -15]
+            - matrix_inner_home
+          shift: [23, -12]
           rotate: 0
         params:
           front: true
@@ -332,38 +342,6 @@ pcbs:
           text: "B-"
         nets:
           net: Bminus
-      trrs_l:
-        type: trrs
-        anchor:
-          ref:
-            - matrix_inner_bottom
-          shift: [32, -15]
-          rotate: 270
-        params:
-          reverse: false
-          symmetric: false
-        # The naming of the nets on this footprint is different from the Corne schematics.
-        nets:
-          A: ""
-          B: VCC
-          C: GND
-          D: P0
-      trrs_r:
-        type: trrs
-        anchor:
-          ref:
-            - matrix_inner_bottom
-          shift: [32, -13]
-          rotate: 270
-        params:
-          reverse: true
-          symmetric: false
-        # The naming of the nets on this footprint is different from the Corne schematics.
-        nets:
-          A: ""
-          B: VCC
-          C: GND
-          D: P0
       jumper_l:
         type: jumper
         anchor:

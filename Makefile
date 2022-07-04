@@ -9,7 +9,7 @@ container_args ?= -w /board -v $(shell pwd):/board --rm
 setup:
 	npm install
 
-# outputs from 
+# outputs from
 output/pcbs/board.kicad_pcb output/pcbs/top_plate.kicad_pcb output/pcbs/bottom_plate.kicad_pcb &: samoklava.yaml
 	npm run gen
 
@@ -34,20 +34,22 @@ output/routed_pcbs/%-drc/: output/routed_pcbs/%.kicad_pcb
 
 output/routed_pcbs/%-front.png: output/routed_pcbs/%.kicad_pcb
 	mkdir -p $(shell dirname $@)
-	${container_cmd} run ${container_args} yaqwsx/kikit:v0.7 pcbdraw --style builtin:oshpark-afterdark.json $< $@
+	${container_cmd} run ${container_args} yaqwsx/kikit:v1.0.2 pcbdraw -s set-blue-enig $< $@
 
 output/routed_pcbs/%-back.png: output/routed_pcbs/%.kicad_pcb
 	mkdir -p $(shell dirname $@)
-	${container_cmd} run ${container_args} yaqwsx/kikit:v0.7 pcbdraw -b --style builtin:oshpark-afterdark.json $< $@
+	${container_cmd} run ${container_args} yaqwsx/kikit:v1.0.2 pcbdraw --back -s set-blue-enig $< $@
 
 output/gerbers/%/gerbers.zip: output/routed_pcbs/%.kicad_pcb
 	mkdir -p $(shell dirname $@)
-	${container_cmd} run ${container_args} yaqwsx/kikit:v0.7 kikit fab jlcpcb --no-assembly $< $(shell dirname $@)
+	${container_cmd} run ${container_args} yaqwsx/kikit:v1.0.2 kikit fab jlcpcb --no-assembly $< $(shell dirname $@)
 
 clean:
 	rm -rf output
 
 all: \
+	output/routed_pcbs/top_plate-front.png \
+	output/routed_pcbs/top_plate-back.png \
 	output/routed_pcbs/board-front.png \
 	output/routed_pcbs/board-back.png \
 	output/gerbers/top_plate/gerbers.zip \
